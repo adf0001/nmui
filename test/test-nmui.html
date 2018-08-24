@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset='utf-8'>
+
+<script src='./nmui.bundle.js'></script>
+
+</head>
+<body onload="onBodyLoad()">
+
+<div id=divTest></div>
+</body>
+</html>
+
+<script>
+
+var nmui= require("nmui");
+
+var testClass= function(ei){
+	nmui.init( ei, this );
+}
+testClass.prototype={
+	config: {
+		html: "<button name='btn1'>btn1</button> <span class='test_span1' name='span1'>test text<span>",
+		css: ".test_span1{color:red;}",
+		event:[
+			["btn1","click", "btn1_onClick", ["aaa"] ],
+			["span1","dblclick"],
+		],
+	},
+	
+	btn1_onClick: function(evt, param1 ){
+		alert("click on btn-1, evt=" + evt+", param1="+param1 );
+	},
+	span1_onDblclick: function(){
+		alert("dblclick on span1");
+	},
+	
+};
+
+function onBodyLoad(){
+	new testClass( document.getElementById("divTest") );
+}
+
+</script>

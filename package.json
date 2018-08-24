@@ -1,0 +1,29 @@
+{
+  "name": "nmui",
+  "description": "Name-ui tool, an html element ui tool based on name attribute.",
+  "license": "MIT",
+  "version": "1.0.0",
+  "main": "nmui.js",
+  "keywords": [
+    "html",
+    "ui",
+    "name"
+  ],
+  "author": {
+    "name": "fwg",
+    "email": "adf0001@163.com"
+  },
+  "homepage": "https://github.com/adf0001/nmui#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/adf0001/nmui.git"
+  },
+  "bugs": {
+    "url": "https://github.com/adf0001/nmui/issues",
+    "email": "adf0001@163.com"
+  },
+  "licenses": "MIT",
+  "dependencies": {
+    "cbo": "^1.0.3"
+  }
+}
