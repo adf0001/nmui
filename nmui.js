@@ -126,6 +126,7 @@ function bindEvent( thisObj, nameMapping, eventConfig )
 
 	for(i=0;i<imax;i++) {
 		evti=eventConfig[i];
+		if( !evti ) continue;
 
 		//get element
 		ele= document.getElementById(nameMapping[evti[0]]);
@@ -145,7 +146,8 @@ function bindEvent( thisObj, nameMapping, eventConfig )
 			}
 		}
 
-		ele.addEventListener( evtn, cbo.toCallback([thisObj,evtf,evti[3]]) );
+		if(ele.addEventListener) ele.addEventListener( evtn, cbo.toCallback([thisObj,evtf,evti[3]]) );
+		else ele.attachEvent( "on" + evtn, cbo.toCallback([thisObj,evtf,evti[3]]) );
 	}
 }
 
