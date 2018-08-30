@@ -31,6 +31,7 @@ var nmui= require("nmui");
  */
 
 var cbo= require("cbo");
+var _addEventListener= require("common-compatible/dom/addEventListener");
 
 
 var seedIndex=0;		//unique dom element id seed
@@ -146,8 +147,7 @@ function bindEvent( thisObj, nameMapping, eventConfig )
 			}
 		}
 
-		if(ele.addEventListener) ele.addEventListener( evtn, cbo.toCallback([thisObj,evtf,evti[3]]) );
-		else ele.attachEvent( "on" + evtn, cbo.toCallback([thisObj,evtf,evti[3]]) );
+		_addEventListener( ele, evtn, cbo.toCallback([thisObj,evtf,evti[3]]) );
 	}
 }
 

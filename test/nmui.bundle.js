@@ -158,6 +158,15 @@ module.exports = {
 };
 
 
+},{}],2:[function(require,module,exports){
+
+//addEventListener()
+module.exports= function( thisObject, type, listener, options ){
+	if( thisObject.addEventListener ) return thisObject.addEventListener.apply( thisObject, Array.prototype.slice.call(arguments,1) );
+	else if( thisObject.attachEvent ) return thisObject.attachEvent.apply( thisObject, ["on"+type].concat(Array.prototype.slice.call(arguments,2)) );
+	else throw Error("neither addEventListener nor attachEvent exists");
+};
+
 },{}],"nmui":[function(require,module,exports){
 
 "use strict";
@@ -192,6 +201,7 @@ var nmui= require("nmui");
  */
 
 var cbo= require("cbo");
+var _addEventListener= require("common-compatible/dom/addEventListener");
 
 
 var seedIndex=0;		//unique dom element id seed
@@ -307,8 +317,7 @@ function bindEvent( thisObj, nameMapping, eventConfig )
 			}
 		}
 
-		if(ele.addEventListener) ele.addEventListener( evtn, cbo.toCallback([thisObj,evtf,evti[3]]) );
-		else ele.attachEvent( "on" + evtn, cbo.toCallback([thisObj,evtf,evti[3]]) );
+		_addEventListener( ele, evtn, cbo.toCallback([thisObj,evtf,evti[3]]) );
 	}
 }
 
@@ -406,4 +415,4 @@ module.exports = {
 };
 
 
-},{"cbo":1}]},{},["nmui"]);
+},{"cbo":1,"common-compatible/dom/addEventListener":2}]},{},["nmui"]);
