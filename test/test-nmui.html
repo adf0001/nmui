@@ -5,13 +5,6 @@
 
 <script src='./nmui.bundle.js'></script>
 
-</head>
-<body onload="onBodyLoad()">
-
-<div id=divTest></div>
-</body>
-</html>
-
 <script>
 
 var nmui= require("nmui");
@@ -25,16 +18,16 @@ testClass.prototype={
 		css: ".test_span1{color:red;}",
 		event:[
 			["btn1","click", "btn1_onClick", ["aaa"] ],
-			["span1","dblclick"],
-		],
+			["span1","dblclick"]
+		]
 	},
 	
 	btn1_onClick: function(evt, param1 ){
 		alert("click on btn-1, evt=" + evt+", param1="+param1 );
 	},
 	span1_onDblclick: function(){
-		alert("dblclick on span1");
-	},
+		alert("dblclick on span1, className=" + this.nme("span1").className );
+	}
 	
 };
 
@@ -42,4 +35,14 @@ function onBodyLoad(){
 	new testClass( document.getElementById("divTest") );
 }
 
+window.onload= onBodyLoad;
+
 </script>
+
+</head>
+<body>
+
+<div id=divTest></div>
+</body>
+</html>
+

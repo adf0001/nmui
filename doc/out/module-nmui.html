@@ -40,8 +40,7 @@
         
             <div class="description"><p>Name-ui tool, an html element ui tool based on name attribute.</p>
 <h1>Contents</h1><ol>
-<li><p>tools</p>
-<ul>
+<li>Tools<ul>
 <li><a href="module-nmui.html#~getId">.getId()                </a></li>
 <li><a href="module-nmui.html#~getMapping">.getMapping()        </a></li>
 <li><a href="module-nmui.html#~bindEvent">.bindEvent()            </a><ul>
@@ -50,16 +49,26 @@
 </li>
 </ul>
 </li>
-<li><p>resource tools</p>
+<li><p>Resource tools</p>
 <ul>
 <li><a href="module-nmui.html#~addCss">.addCss()                </a></li>
 </ul>
 </li>
-<li><p>initializing tools</p>
+<li><p>Initializing tools</p>
 <ul>
-<li><a href="module-nmui.html#~init">.init()            </a><ul>
-<li><a href="module-nmui.html#~nmuiObject">nmuiObject            </a></li>
-<li><a href="module-nmui.html#~nmuiConfig">nmuiConfig            </a></li>
+<li><a href="module-nmui.html#~init">.init()                    </a><ul>
+<li><a href="module-nmui.html#~nmuiConfig">nmuiConfig            </a><ul>
+<li><a href="module-nmui.html#~nmuiConfig">.html                </a></li>
+<li><a href="module-nmui.html#~nmuiConfig">.event                </a></li>
+<li><a href="module-nmui.html#~nmuiConfig">.css                </a></li>
+</ul>
+</li>
+<li><a href="module-nmui.html#~nmuiObject">nmuiObject            </a><ul>
+<li><a href="module-nmui.html#~nmuiObject">.config            </a></li>
+<li><a href="module-nmui.html#~nmuiObject">.nm                </a></li>
+<li><a href="module-nmui.html#~nme">.nme()                </a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -228,7 +237,7 @@
 
             
 
-            <td class="description last"><p>css stylesheet text</p></td>
+            <td class="description last"><p>Css stylesheet text</p></td>
         </tr>
 
     
@@ -368,7 +377,7 @@
 
             
 
-            <td class="description last"><p>the <code>this</code> object</p></td>
+            <td class="description last"><p>A <code>this</code> object</p></td>
         </tr>
 
     
@@ -391,7 +400,7 @@
 
             
 
-            <td class="description last"><p>an object mapping dom elements' <code>name</code> attribute to their <code>id</code>, refer to <a href="module-nmui.html#~getMapping">getMapping()</a></p></td>
+            <td class="description last"><p>An object mapping dom elements' <code>name</code> attributes to their <code>id</code>s, refer to <a href="module-nmui.html#~getMapping">getMapping()</a></p></td>
         </tr>
 
     
@@ -414,7 +423,7 @@
 
             
 
-            <td class="description last"><p>an array of <a href="module-nmui.html#~eventConfigItem">eventConfigItem</a>, to configure event binding.</p></td>
+            <td class="description last"><p>An array of <a href="module-nmui.html#~eventConfigItem">eventConfigItem</a>, to configure event binding.</p></td>
         </tr>
 
     
@@ -502,7 +511,7 @@
 
 
 <div class="description">
-    <p>Get the <code>id</code> of a dom element. If there's none, create a unique id for the element.</p>
+    <p>Get the <code>id</code> of a dom element. If there's none, create and set a unique id for the element.</p>
 </div>
 
 
@@ -564,7 +573,7 @@
 
             
 
-            <td class="description last"><p>a dom element</p></td>
+            <td class="description last"><p>A dom element</p></td>
         </tr>
 
     
@@ -597,7 +606,7 @@
 
             
 
-            <td class="description last"><p>prefix string for new id, default is &quot;nmui_&quot;.</p></td>
+            <td class="description last"><p>Prefix string for new id, default is &quot;nmui_&quot;.</p></td>
         </tr>
 
     
@@ -685,7 +694,7 @@
 
 
 <div class="description">
-    <p>Get an object that mapping dom element <code>name</code> attribute to <code>id</code>.</p>
+    <p>Get an object that mapping dom elements' <code>name</code> attributes to their <code>id</code>s.</p>
 </div>
 
 
@@ -737,7 +746,7 @@
 
             
 
-            <td class="description last"><p>a dom element</p></td>
+            <td class="description last"><p>A dom element</p></td>
         </tr>
 
     
@@ -829,7 +838,12 @@
 
 
 <div class="description">
-    <p>Initialize a nmui object</p>
+    <p>Initialize a nmui object<br>This function will add following properties to the <code>uiObject</code>,</p>
+<ul>
+<li><a href="module-nmui.html#~nmuiObject">.config</a>    (if needed)</li>
+<li><a href="module-nmui.html#~nmuiObject">.nm</a></li>
+<li><a href="module-nmui.html#~nmuiObject">.nme()</a></li>
+</ul>
 </div>
 
 
@@ -891,7 +905,7 @@
 
             
 
-            <td class="description last"><p>a dom element</p></td>
+            <td class="description last"><p>A dom element</p></td>
         </tr>
 
     
@@ -922,7 +936,7 @@
 
             
 
-            <td class="description last"><p>a javascript object that bound to <code>ei</code>, an object of <a href="module-nmui.html#~nmuiObject">nmuiObject</a> type.</p></td>
+            <td class="description last"><p>A javascript object that bound to <code>ei</code>, an object of <a href="module-nmui.html#~nmuiObject">nmuiObject</a> type.</p></td>
         </tr>
 
     
@@ -955,10 +969,10 @@
 
             
 
-            <td class="description last"><p>a config object of <a href="module-nmui.html#~nmuiConfig">nmuiConfig</a> type.</p>
+            <td class="description last"><p>A config object of <a href="module-nmui.html#~nmuiConfig">nmuiConfig</a> type.</p>
 <ul>
-<li>if <code>config</code> is empty, the existed <code>uiObject.config</code> will be used to initialize <code>uiObject</code>.</li>
-<li>if <code>config</code> is not empty, it will be saved to <code>uiObject.config</code>.</li>
+<li>If <code>config</code> is empty, the existed <code>uiObject.config</code> will be used to initialize <code>uiObject</code>.</li>
+<li>If <code>config</code> is not empty, it will be saved to <code>uiObject.config</code>.</li>
 </ul></td>
         </tr>
 
@@ -1034,6 +1048,157 @@
 
 
         
+            
+
+    
+
+    
+    <h4 class="name" id="~nme"><span class="type-signature">(inner) </span>nme<span class="signature">(name)</span><span class="type-signature"></span></h4>
+    
+
+    
+
+
+
+<div class="description">
+    <p>Get the name mapping dom element, by <code>document.getElementById(...)</code>.<br>This is a property function, in which the <code>this</code> is a <a href="module-nmui.html#~nmuiObject">nmuiObject</a> object</p>
+</div>
+
+
+
+
+
+
+
+    <h5>This:</h5>
+    <ul><li>nmuiObject</li></ul>
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>An element's name string</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5>Returns:</h5>
+<ul>
+        <li>
+<div class="param-desc">
+    <p>A dom element</p>
+</div>
+
+
+</li>
+    
+        <li>
+<div class="param-desc">
+    <p><code>null</code> if unfound</p>
+</div>
+
+
+</li>
+    </ul>
+
+
+
+
+
+        
     
 
     
@@ -1047,7 +1212,7 @@
 
 
 <div class="description">
-    <p>event config item</p>
+    <p>Event config item</p>
 <blockquote>
 <p>[ <code>name</code>, <code>eventName</code>, <em><code>func</code></em>, <em><code>argArray</code></em> ]</p>
 </blockquote>
@@ -1109,7 +1274,7 @@
 
             
 
-            <td class="description last"><p><code>[0]</code> dom element <code>name</code> attribute</p></td>
+            <td class="description last"><p><code>[0]</code> A dom element <code>name</code> attribute</p></td>
         </tr>
 
     
@@ -1138,7 +1303,7 @@
 
             
 
-            <td class="description last"><p><code>[1]</code> an event name string,  - don't prefix string <code>&quot;on&quot;</code></p></td>
+            <td class="description last"><p><code>[1]</code> An event name string,  - don't prefix string <code>&quot;on&quot;</code></p></td>
         </tr>
 
     
@@ -1172,7 +1337,7 @@
 
             
 
-            <td class="description last"><p><code>[2]</code> a function name string in <code>this</code>, or a function.<br>                                            * if <code>func</code> is empty, a string of <code>name</code>+<code>'_on'</code>+<code>EventName</code> is supposed to filled into <code>func</code> (first letter of <code>eventName</code> is in upper case)</p></td>
+            <td class="description last"><p><code>[2]</code> A function name string in <code>this</code>, or a function.<br>                                            * If the <code>func</code> is empty, a string of <code>name</code>+<code>'_on'</code>+<code>EventName</code> is supposed to filled into <code>func</code> (first letter of <code>eventName</code> is in upper case)</p></td>
         </tr>
 
     
@@ -1203,7 +1368,7 @@
 
             
 
-            <td class="description last"><p><code>[3]</code> an argument array for calling <code>func</code></p></td>
+            <td class="description last"><p><code>[3]</code> An argument array for calling <code>func</code></p></td>
         </tr>
 
     
@@ -1270,7 +1435,7 @@
 
 
 <div class="description">
-    <p>nmui config object</p>
+    <p>Nmui config object</p>
 </div>
 
 
@@ -1329,7 +1494,7 @@
 
             
 
-            <td class="description last"><p>html string for dom element <code>innerHTML</code></p></td>
+            <td class="description last"><p>A html string for dom element <code>innerHTML</code></p></td>
         </tr>
 
     
@@ -1358,7 +1523,7 @@
 
             
 
-            <td class="description last"><p>an array of <a href="module-nmui.html#~eventConfigItem">eventConfigItem</a>, to configure event binding.</p></td>
+            <td class="description last"><p>An array of <a href="module-nmui.html#~eventConfigItem">eventConfigItem</a>, to configure event binding.</p></td>
         </tr>
 
     
@@ -1387,7 +1552,7 @@
 
             
 
-            <td class="description last"><p>css stylesheet text</p></td>
+            <td class="description last"><p>Css stylesheet text</p></td>
         </tr>
 
     
@@ -1418,7 +1583,7 @@
 
             
 
-            <td class="description last"><p>a flag, that is set to <code>true</code> after <code>css</code> is loaded to the page.</p></td>
+            <td class="description last"><p>A flag, that is set to <code>true</code> after <code>css</code> is loaded to the page.</p></td>
         </tr>
 
     
@@ -1476,7 +1641,7 @@
 
 
 <div class="description">
-    <p>nmui object</p>
+    <p>Nmui object</p>
 </div>
 
 
@@ -1498,8 +1663,6 @@
 
         <th>Type</th>
 
-        
-        <th>Attributes</th>
         
 
         
@@ -1526,16 +1689,10 @@
             </td>
 
             
-                <td class="attributes">
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>an object of <a href="module-nmui.html#~nmuiConfig">nmuiConfig</a> type</p></td>
+            <td class="description last"><p>An object of <a href="module-nmui.html#~nmuiConfig">nmuiConfig</a> type</p></td>
         </tr>
 
     
@@ -1555,18 +1712,33 @@
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
+            
+
+            <td class="description last"><p>A name mapping object, for saving the result of mapping dom elements' <code>name</code> attribute to their <code>id</code>, refer to <a href="module-nmui.html#~getMapping">getMapping()</a> and <a href="module-nmui.html#~init">init()</a></p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>nme</code></td>
+            
+
+            <td class="type">
+            
                 
-                </td>
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
             
 
             
 
-            <td class="description last"><p>a name mapping object, for saving the result of mapping dom elements' <code>name</code> attribute to their <code>id</code>, refer to <a href="module-nmui.html#~getMapping">getMapping()</a> and <a href="module-nmui.html#~init">init()</a></p></td>
+            <td class="description last"><p>A function to get the name mapping dom element, refer <a href="module-nmui.html#~nme">.nme()</a>.</p></td>
         </tr>
 
     

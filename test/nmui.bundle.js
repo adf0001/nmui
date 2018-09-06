@@ -15,7 +15,6 @@ require=(function(){function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=
  *  * [Callback object					](#defineCallbackObject)
  * 2. Call tool
  *  * [.call()							]{@link module:cbo~call}
- *  * [.setTimeout()					]{@link module:cbo~setTimeout}
  * 
  * 3. Build tool
  *  * [.combine()						]{@link module:cbo~combine}
@@ -132,19 +131,6 @@ function toCallback(cbo, reserve) {
 }
 
 
-/**
- * call system `setTimeout` by cbo
- * @function setTimeout
- * 
- * @param {cbo} cbo - a cbo object
- * @param {number} ms - milliseconds to delay
- * 
- * @return system timer id
- */
-function _setTimeout(cbo, ms) {
-	return setTimeout(this.toCallback(cbo), ms);
-}
-
 //module
 
 module.exports = {
@@ -152,19 +138,18 @@ module.exports = {
 
 	combine: combine,
 
-	toCallback: toCallback,
+	toCallback: toCallback
 
-	setTimeout: _setTimeout,
 };
 
 
 },{}],2:[function(require,module,exports){
 
 //addEventListener()
-module.exports= function( thisObject, type, listener, options ){
+module.exports= function( thisObject, type, listener /*, options*/ ){
 	if( thisObject.addEventListener ) return thisObject.addEventListener.apply( thisObject, Array.prototype.slice.call(arguments,1) );
 	else if( thisObject.attachEvent ) return thisObject.attachEvent.apply( thisObject, ["on"+type].concat(Array.prototype.slice.call(arguments,2)) );
-	else throw Error("neither addEventListener nor attachEvent exists");
+	else thisObject["on"+type]= listener;
 };
 
 },{}],"nmui":[function(require,module,exports){
@@ -180,19 +165,24 @@ module.exports= function( thisObject, type, listener, options ){
  * 
  * # Contents #
  * 
- * 1. tools
+ * 1. Tools
  *  * [.getId()				]{@link module:nmui~getId}
  *  * [.getMapping()		]{@link module:nmui~getMapping}
  *  * [.bindEvent()			]{@link module:nmui~bindEvent}
  *     * [eventConfigItem		]{@link module:nmui~eventConfigItem}
- *
- * 2. resource tools
+ * 2. Resource tools
  *  * [.addCss()				]{@link module:nmui~addCss}
  *
- * 3. initializing tools
- *  * [.init()			]{@link module:nmui~init}
- *     * [nmuiObject			]{@link module:nmui~nmuiObject}
+ * 3. Initializing tools
+ *  * [.init()					]{@link module:nmui~init}
  *     * [nmuiConfig			]{@link module:nmui~nmuiConfig}
+ *        * [.html				]{@link module:nmui~nmuiConfig}
+ *        * [.event				]{@link module:nmui~nmuiConfig}
+ *        * [.css				]{@link module:nmui~nmuiConfig}
+ *     * [nmuiObject			]{@link module:nmui~nmuiObject}
+ *        * [.config			]{@link module:nmui~nmuiObject}
+ *        * [.nm				]{@link module:nmui~nmuiObject}
+ *        * [.nme()				]{@link module:nmui~nme}
  *
  *
  * @example
@@ -207,11 +197,11 @@ var _addEventListener= require("common-compatible/dom/addEventListener");
 var seedIndex=0;		//unique dom element id seed
 
 /**
- * Get the `id` of a dom element. If there's none, create a unique id for the element.
+ * Get the `id` of a dom element. If there's none, create and set a unique id for the element.
  * @function getId
  * 
- * @param {element} ele - a dom element
- * @param {string} [prefix] - prefix string for new id, default is "nmui_".
+ * @param {element} ele - A dom element
+ * @param {string} [prefix] - Prefix string for new id, default is "nmui_".
  * 
  * @returns The `id` of the `ei`
  */
@@ -227,7 +217,7 @@ function getId(ele, prefix)
 	return ele.id=sid;
 }
 
-//iterate children name
+//Iterate children name
 function _getMapping( ele, m ){
 	var nd= ele.firstChild;
 	var nm;
@@ -242,10 +232,10 @@ function _getMapping( ele, m ){
 }
 
 /**
- * Get an object that mapping dom element `name` attribute to `id`.
+ * Get an object that mapping dom elements' `name` attributes to their `id`s.
  * @function getMapping
  * 
- * @param {element} ele - a dom element
+ * @param {element} ele - A dom element
  * 
  * @returns An object
  *  * mapping descendant's `name` to their `id`
@@ -260,16 +250,16 @@ function getMapping(ele)
 
 
 /**
- * event config item
+ * Event config item
  * > [ `name`, `eventName`, *`func`*, *`argArray`* ]
  * 
  * @typedef eventConfigItem
  * 
- * @property {string} name - `[0]` dom element `name` attribute
- * @property {string} eventName - `[1]` an event name string,  - don't prefix string `"on"`
- * @property {string|function} [func] - `[2]` a function name string in `this`, or a function.
- * 											\* if `func` is empty, a string of `name`+`'_on'`+`EventName` is supposed to filled into `func` (first letter of `eventName` is in upper case)
- * @property {array} [argArray] - `[3]` an argument array for calling `func`
+ * @property {string} name - `[0]` A dom element `name` attribute
+ * @property {string} eventName - `[1]` An event name string,  - don't prefix string `"on"`
+ * @property {string|function} [func] - `[2]` A function name string in `this`, or a function.
+ * 											\* If the `func` is empty, a string of `name`+`'_on'`+`EventName` is supposed to filled into `func` (first letter of `eventName` is in upper case)
+ * @property {array} [argArray] - `[3]` An argument array for calling `func`
  * 
  * @example
 [ 'btn1', 'click', 'btn1_onClick' ]
@@ -284,9 +274,9 @@ function getMapping(ele)
  * Bind event process from event config array
  * @function bindEvent
  * 
- * @param {object} thisObj - the `this` object
- * @param {object} nameMapping - an object mapping dom elements' `name` attribute to their `id`, refer to [getMapping()]{@link module:nmui~getMapping}
- * @param {eventConfigItem[]} eventConfig - an array of [eventConfigItem]{@link module:nmui~eventConfigItem}, to configure event binding.
+ * @param {object} thisObj - A `this` object
+ * @param {object} nameMapping - An object mapping dom elements' `name` attributes to their `id`s, refer to [getMapping()]{@link module:nmui~getMapping}
+ * @param {eventConfigItem[]} eventConfig - An array of [eventConfigItem]{@link module:nmui~eventConfigItem}, to configure event binding.
  * 
  * @returns void
  */
@@ -326,7 +316,7 @@ function bindEvent( thisObj, nameMapping, eventConfig )
  * Add css text to document style
  * @function addCss
  * 
- * @param {string} cssText - css stylesheet text
+ * @param {string} cssText - Css stylesheet text
  * 
  * @returns void
  */
@@ -346,37 +336,58 @@ function addCss(cssText)
 
 
 /**
- * nmui config object
+ * Nmui config object
  * 
  * @typedef nmuiConfig
  * 
- * @property {string} html - html string for dom element `innerHTML`
- * @property {eventConfigItem[]} event - an array of [eventConfigItem]{@link module:nmui~eventConfigItem}, to configure event binding.
- * @property {string} css - css stylesheet text
- * @property {boolean} [cssLoaded] - a flag, that is set to `true` after `css` is loaded to the page.
+ * @property {string} html - A html string for dom element `innerHTML`
+ * @property {eventConfigItem[]} event - An array of [eventConfigItem]{@link module:nmui~eventConfigItem}, to configure event binding.
+ * @property {string} css - Css stylesheet text
+ * @property {boolean} [cssLoaded] - A flag, that is set to `true` after `css` is loaded to the page.
  * 
  */
 
 /**
- * nmui object
+ * Get the name mapping dom element, by `document.getElementById(...)`.
+ * This is a property function, in which the `this` is a [nmuiObject]{@link module:nmui~nmuiObject} object
+ * @function nme
+ *
+ * @param {string} name - An element's name string
  * 
+ * @this nmuiObject
+ *
+ * @returns A dom element
+ * @returns `null` if unfound
+ */
+function nme(name){
+	return (this.nm && (name in this.nm) )?document.getElementById(this.nm[name]):null;
+}
+
+/**
+ * Nmui object
+ * @name nmuiObject
  * @typedef nmuiObject
  * 
- * @property {object} config - an object of [nmuiConfig]{@link module:nmui~nmuiConfig} type
- * @property {object} [nm] - a name mapping object, for saving the result of mapping dom elements' `name` attribute to their `id`, refer to [getMapping()]{@link module:nmui~getMapping} and [init()]{@link module:nmui~init}
+ * @property {object} config - An object of [nmuiConfig]{@link module:nmui~nmuiConfig} type
+ * @property {object} nm - A name mapping object, for saving the result of mapping dom elements' `name` attribute to their `id`, refer to [getMapping()]{@link module:nmui~getMapping} and [init()]{@link module:nmui~init}
+ * @property {function} nme - A function to get the name mapping dom element, refer [.nme()]{@link module:nmui~nme}.
  * 
  */
 
 
 /**
  * Initialize a nmui object
+ * This function will add following properties to the `uiObject`,
+ * * [.config]{@link module:nmui~nmuiObject}	(if needed)
+ * * [.nm]{@link module:nmui~nmuiObject}
+ * * [.nme()]{@link module:nmui~nmuiObject}
  * @function init
  * 
- * @param {element} ei - a dom element
- * @param {object} uiObject - a javascript object that bound to `ei`, an object of [nmuiObject]{@link module:nmui~nmuiObject} type.
- * @param {object} [config] - a config object of [nmuiConfig]{@link module:nmui~nmuiConfig} type.
- *  * if `config` is empty, the existed `uiObject.config` will be used to initialize `uiObject`.
- *  * if `config` is not empty, it will be saved to `uiObject.config`.
+ * @param {element} ei - A dom element
+ * @param {object} uiObject - A javascript object that bound to `ei`, an object of [nmuiObject]{@link module:nmui~nmuiObject} type.
+ * @param {object} [config] - A config object of [nmuiConfig]{@link module:nmui~nmuiConfig} type.
+ *  * If `config` is empty, the existed `uiObject.config` will be used to initialize `uiObject`.
+ *  * If `config` is not empty, it will be saved to `uiObject.config`.
  * 
  * @returns void
  */
@@ -396,6 +407,7 @@ function init( ei, uiObject, config )
 	
 	//3. name mapping
 	uiObject.nm= getMapping(ei);
+	uiObject.nme= nme;
 	
 	//4. event
 	if( config.event ) bindEvent( uiObject, uiObject.nm, config.event );
@@ -411,7 +423,7 @@ module.exports = {
 	bindEvent: bindEvent,
 	addCss: addCss,
 
-	init: init,
+	init: init
 };
 
 
