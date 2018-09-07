@@ -7,5 +7,5 @@ Name-ui tool, an html element ui tool based on name attribute.
 
 ## API document
 
-[module-nmui.html](https://htmlpreview.github.io/?https://github.com/adf0001/nmui/blob/master/doc/out/module-nmui.html)
+[module-nmui.html](https://adf0001.github.io/nmui/jsdoc/out/module-nmui.html)
 

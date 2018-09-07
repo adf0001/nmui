@@ -2,7 +2,7 @@
   "name": "nmui",
   "description": "Name-ui tool, an html element ui tool based on name attribute.",
   "license": "MIT",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "main": "nmui.js",
   "keywords": [
     "html",
@@ -24,7 +24,7 @@
   },
   "licenses": "MIT",
   "dependencies": {
-    "cbo": "^1.0.4",
+    "cbo": "^1.0.5",
     "common-compatible": "^1.0.3"
   }
 }
