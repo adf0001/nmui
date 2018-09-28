@@ -260,14 +260,12 @@ function init( ei, uiObject, config )
 }
 
 
-//module
+//module, toolset
 
-module.exports = {
-	getId: getId,
-	getMapping: getMapping,
-	bindEvent: bindEvent,
-	addCss: addCss,
+exports.getId= getId;
+exports.getMapping= getMapping;
+exports.bindEvent= bindEvent;
+exports.addCss= addCss;
 
-	init: init
-};
+exports.init= init;
 
